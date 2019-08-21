@@ -20,11 +20,6 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 
-	@RequestMapping(value = { "index.ino", "home.ino" })
-	public String page() {
-		return "page";
-	}
-
 	/**
 	 * 게시판 리스트
 	 * 
