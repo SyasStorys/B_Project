@@ -1,0 +1,14 @@
+<!-- FONTS -->
+<link rel="stylesheet" href="<%=Ctx%>/resources/css/fonts/simple-line-icons.css">
+<link rel="stylesheet" href="<%=Ctx%>/resources/css/fonts/font-awesome.css">
+<!-- BOOTSTRAP -->
+<link href="<%=Ctx%>/resources/css/bootstrap.css" rel="stylesheet">
+<!-- FULLPAGE SCROLL  -->
+<link rel="stylesheet" type="text/css" href="<%=Ctx%>/resources/css/jquery.fullpage.css" />
+<link rel="stylesheet" type="text/css" href="<%=Ctx%>/resources/css/animate.css" />
+<!-- GALLERY -->
+<link rel="stylesheet" type="text/css" href="<%=Ctx%>/resources/css/prettyPhoto.css" media="screen" title="prettyPhoto main stylesheet" />
+<!-- CUSTOM CSS  -->
+<link rel="stylesheet" type="text/css" href="<%=Ctx%>/resources/css/style.css" />
+<link rel="stylesheet" type="text/css" href="<%=Ctx%>/resources/css/media.css" />
+<link rel="stylesheet" id="theme" type="text/css" href="<%=Ctx%>/resources/css/colors/green.css" />
