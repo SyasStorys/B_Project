@@ -17,7 +17,7 @@
 
 
 ##H2 DataBase
-jdbc.driverClassName=org.h2.Driver
+jdbc.driverClassName=net.sf.log4jdbc.sql.jdbcapi.DriverSpy
 jdbc.url=jdbc:h2:tcp://localhost/~/test;DB_CLOSE_ON_EXIT=FALSE;FILE_LOCK=NO;AUTO_SERVER=TRUE
 jdbc.username=sa
 jdbc.password=

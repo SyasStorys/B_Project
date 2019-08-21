@@ -9,7 +9,7 @@ public class MainController {
 
 	@RequestMapping(value = { "index.ino", "home.ino" })
 	public String page() {
-		return "index";
+		return "page";
 	}
 	
 }
