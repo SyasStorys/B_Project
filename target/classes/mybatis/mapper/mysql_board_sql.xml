@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+	<sql id="includeBoard">
+		WHERE BRDDELETEFLAG = 'N'
+		<if test="searchKeyword != null and searchKeyword != '' and searchType!=''">
+			<foreach collection="searchTypeArr" item="item" index="index">
+				AND ${item} LIKE CONCAT('%',#{searchKeyword},'%')
+			</foreach>
+		</if>
+
+	</sql>
+
+	<select id="boardList" resultType="board" parameterType="searchVO">
+		SELECT
+			BRDNO,
+			BRDTITLE,
+			BRDWRITER,
+			DATE_FORMAT(BRDDATE, '%Y-%m-%d') BRDDATE,
+			BRDCNT,
+			BRDDELETEFLAG
+		FROM
+			TBL_BOARD
+		<include refid="includeBoard" />
+		ORDER BY BRDNO DESC
+		LIMIT ${rowStart-1}, 10
+	</select>
+
+	<select id="boardRead" parameterType="Integer" resultType="board">
+		SELECT
+			BRDNO,
+			BRDTITLE,
+			BRDWRITER,
+			BRDMEMO,
+			DATE_FORMAT(BRDDATE, '%Y-%m-%d') BRDDATE,
+			BRDCNT
+		FROM
+			TBL_BOARD
+		WHERE
+			BRDDELETEFLAG = 'N'
+		AND
+			BRDNO = #{brdno}
+	</select>
+
+	<update id="boardReadCnt" parameterType="board">
+		UPDATE
+			TBL_BOARD
+		SET
+			BRDCNT = BRDCNT + 1
+		WHERE
+			BRDNO = #{brdno}
+	</update>
+
+	<update id="boardUpdate" parameterType="board">
+		UPDATE
+			TBL_BOARD
+		SET
+			BRDTITLE = #{brdtitle},
+			BRDMEMO = #{brdmemo},
+			BRDDATE = DATE_FORMAT(BRDDATE, '%Y-%m-%d') BRDDATE
+		WHERE
+			BRDNO = #{brdno}
+	</update>
+
+	<insert id="boardInsert" parameterType="board">
+		INSERT INTO
+			TBL_BOARD
+		(
+			BRDNO,
+			BRDTITLE,
+			BRDWRITER,
+			BRDMEMO,
+			BRDDATE,
+			BRDCNT,
+			BRDDELETEFLAG
+		)
+		VALUES
+		(
+			BRDNO,
+			#{brdtitle},
+			#{brdwriter},
+			#{brdmemo},
+			NOW(),
+			#{brdcnt},
+			'N'
+		)
+	</insert>
+
+	<update id="boardDelete" parameterType="board">
+		UPDATE
+			TBL_BOARD
+		SET
+			BRDDELETEFLAG = 'Y'
+		WHERE
+			BRDNO = #{brdno}
+	</update>
+
+	<select id="boardCount" resultType="Integer" parameterType="searchVO">
+		SELECT
+			COUNT(*)
+		FROM
+			TBL_BOARD
+		<include refid="includeBoard" />
+	</select>
+</mapper>

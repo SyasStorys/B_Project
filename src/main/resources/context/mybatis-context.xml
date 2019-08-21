@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
-	
+
 	<context:property-placeholder location="classpath:/mybatis/properties/jdbc_properties" />
 
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -27,7 +27,7 @@
 	<bean id="SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:/mybatis/config/mybatis-config.xml" />
-		<property name="mapperLocations" value="classpath:/mybatis/mapper/*_sql.xml" />
+		<property name="mapperLocations" value="classpath:/mybatis/mapper/mysql_board_sql.xml" />
 	</bean>
 
 
@@ -40,5 +40,5 @@
 	</bean>
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
-		
+
 </beans>

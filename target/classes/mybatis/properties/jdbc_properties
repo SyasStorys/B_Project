@@ -4,20 +4,19 @@
 #jdbc.username=bproject
 #jdbc.password=1234
 
-##Local MySql  mysql-connector-java ¹öÀü 5.1.X ÀÌÈÄ ¹öÀüºÎÅÍ
+##Local MySql  mysql-connector-java ï¿½ï¿½ï¿½ï¿½ 5.1.X ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 #jdbc.driverClassName=net.sf.log4jdbc.sql.jdbcapi.DriverSpy
 #jdbc.url=jdbc:log4jdbc:mysql://localhost:3306/astory?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
 #jdbc.username=astory
 #jdbc.password=1234
 
-#jdbc.driverClassName=net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-#jdbc.url=jdbc:log4jdbc:mysql://localhost:3306/bstory?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
-#jdbc.username=bstory
-#jdbc.password=1234
-
+jdbc.driverClassName=net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+jdbc.url=jdbc:log4jdbc:mysql://localhost:3306/bproject?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+jdbc.username=bproject
+jdbc.password=1234
 
 ##H2 DataBase
-jdbc.driverClassName=net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-jdbc.url=jdbc:h2:tcp://localhost/~/test;DB_CLOSE_ON_EXIT=FALSE;FILE_LOCK=NO;AUTO_SERVER=TRUE
-jdbc.username=sa
-jdbc.password=
+#jdbc.driverClassName=net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+#jdbc.url=jdbc:h2:tcp://localhost/~/test;DB_CLOSE_ON_EXIT=FALSE;FILE_LOCK=NO;AUTO_SERVER=TRUE
+#jdbc.username=sa
+#jdbc.password=

@@ -17,9 +17,9 @@
 
 <style>
 	#brdtitle {
-		max-width: 100px; 
-		overflow: hidden; 
-		white-space: nowrap; 
+		max-width: 100px;
+		overflow: hidden;
+		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
 </style>
@@ -30,15 +30,15 @@
 			location.href='boardForm.ino';
 		});
 	});
-	
+
 	function fn_searchFormSubmit() {
 		document.searchForm.submit();
 	}
-		
+
 </script>
 </head>
 <body>
-	
+
 	<button type="button" id="boardForm">글쓰기</button>
 	<table border="1" width="600px">
 		<tr>
@@ -68,9 +68,9 @@
 				</td>
 			</tr>
 		</c:forEach>
-			
+
 	</table>
-	
+
 	<c:if test="${searchVO.totPage>1 }">
 		<div class="paging">
 			<c:forEach var="i" begin="${searchVO.pageStart }" end="${searchVO.pageEnd }" step="1">
@@ -82,26 +82,30 @@
 						<c:out value="${i }"/>
 					</c:when>
 					<c:otherwise>
-						<a href="${pageLink }"><c:out value="${i }" /></a>	
+						<a href="${pageLink }"><c:out value="${i }" /></a>
 					</c:otherwise>
 				</c:choose>
-				
+
 			</c:forEach>
 		</div>
 	</c:if>
-	
+
 	<form id="searchForm" name="searchForm" method="post">
 		<section>
 			<div id="search_Container">
-				<input type="checkbox" name="searchType" value="brdtitle" <c:if test="${fn:indexOf(searchVO.searchType, 'brdtitle')!=-1 }">checked="checked"</c:if> />
+				<input type="checkbox" name="searchType" value="brdtitle"
+					<c:if test="${fn:indexOf(searchVO.searchType, 'brdtitle')!=-1 }">checked="checked"</c:if>
+				/>
 				<label for="searchType1" class="chkSearch">제목</label>
-				<input type="checkbox" name="searchType" value="brdmemo" <c:if test="${fn:indexOf(searchVO.searchType, 'brdmemo')!=-1 }">checked="checked"></c:if> />
+				<input type="checkbox" name="searchType" value="brdmemo"
+					<c:if test="${fn:indexOf(searchVO.searchType, 'brdmemo')!=-1 }">checked="checked"></c:if>
+				/>
 				<label for="searchType2" class="chkSearch">내용</label>
-				<input type="text" name="searchKeyword" style="width:150px;" maxlength="50" value="<c:out value='${searchVO.searchKeyword }' />" onkeydown="if(event.keyCode == 13) {fn_searchFormSubmit();}" />
+				<input type="text" name="searchKeyword" style="width:150px;" maxlength="50" value="${searchVO.searchKeyword }" onkeydown="if(event.keyCode == 13) {fn_searchFormSubmit();}" />
 				<input type="button" name="btn_search" value="검색" class="btn_search" onclick="fn_searchFormSubmit();"/>
 			</div>
 		</section>
-		
+
 	</form>
 
 </body>
