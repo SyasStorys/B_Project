@@ -59,7 +59,7 @@
 		SET
 			BRDTITLE = #{brdtitle},
 			BRDMEMO = #{brdmemo},
-			BRDDATE = DATE_FORMAT(BRDDATE, '%Y-%m-%d') BRDDATE
+			BRDDATE = NOW()
 		WHERE
 			BRDNO = #{brdno}
 	</update>

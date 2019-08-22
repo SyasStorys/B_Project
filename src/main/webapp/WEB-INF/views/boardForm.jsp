@@ -101,6 +101,29 @@
     			}
     		});
     	});
+    	
+    	/*
+    		파일업로드
+    	*/
+    	$('#btn_upload').click(function(){
+    		var form = new FormData(document.getElementById('uploadForm'));
+    		$.ajax({
+    			url : "fileUpload.ino",
+    			data : form,
+    			dataType : 'json',
+    			processData : false,
+    			contentType : false,
+    			type : 'POST',
+    			success : function (response) {
+    				alert('파일 업로드가 되었습니다.');
+    				console.log(response);
+    			},
+    			error : function(jqXHR) {
+    				alert('파일 업로드 실패');
+    			}
+    		});
+    	});
+    	
     });
     
 </script>
@@ -128,6 +151,16 @@
         이름
         <input name="brdwriter" id="brdwriter" value="${boardInfo.brdwriter}" placeholder="이름을 입력해주세요">
     </div>
+    <div>
+    	<form action="fileUpload.ino" id="uploadForm" enctype="multipart/form-data" method="post">
+    		<label for="file1">파일 첫 번째</label>
+    		<div><input type="file" id="file1" name="file" required="required" /></div>
+    		<label for="file2">파일 두 번째</label>
+    		<div><input type="file" id="file2" name="file" required="required" /></div>
+    	</form>
+    	<button id="btn_upload">파일 업로드</button>
+    </div>
+    
     <div style="width:650px; text-align: center;">
         <!-- 게시물번호를 hidden으로 처리 -->
         <input type="hidden" id="brdno" name="brdno" value="${boardInfo.brdno}">

@@ -13,4 +13,14 @@ create table tbl_board(
     primary key (brdno)
 );
 
+create table tbl_boardfile(
+
+	fileno int(11) not null auto_increment,
+	brdno int(11),
+	filename varchar(100),
+	realname varchar(30),
+	filesize int,
+	primary key(fileno)
+);
+
 commit;
