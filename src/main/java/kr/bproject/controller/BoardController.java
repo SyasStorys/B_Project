@@ -1,13 +1,20 @@
 package kr.bproject.controller;
 
+
+import java.io.File;
+import java.util.Iterator;
 import java.util.List;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import kr.bproject.common.SearchVO;
 import kr.bproject.service.BoardService;
@@ -17,19 +24,25 @@ import kr.bproject.vo.BoardVO;
 @RequestMapping("/*")
 public class BoardController {
 
+	// ï¿½ï¿½ï¿½Îµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
+	private final String PATH = "C:\\workspace\\B_Project\\src\\main\\webapp\\resources\\uploadfile\\";
+
+	@Autowired
+	private MappingJackson2JsonView jsonView;
+
 	@Autowired
 	private BoardService boardService;
 
 	/**
-	 * °Ô½ÃÆÇ ¸®½ºÆ®
-	 * 
+	 * ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
+	 *
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "boardList.ino")
 	public ModelAndView boardList(SearchVO searchVO) throws Exception {
 		ModelAndView mv = new ModelAndView("blog");
-		
+
 		searchVO.pageCalculate(boardService.boardCount(searchVO)); // startRow, endRow
 		List<BoardVO> listview = boardService.boardList(searchVO);
 
@@ -40,8 +53,8 @@ public class BoardController {
 	}
 
 	/**
-	 * °Ô½ÃÆÇ ÀÐ±â
-	 * 
+	 * ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½Ð±ï¿½
+	 *
 	 * @return
 	 * @throws Exception
 	 */
@@ -60,8 +73,8 @@ public class BoardController {
 	}
 
 	/**
-	 * °Ô½ÃÆÇ ¼öÁ¤&»ðÀÔ
-	 * 
+	 * ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½&ï¿½ï¿½ï¿½ï¿½
+	 *
 	 * @return
 	 * @throws Exception
 	 */
@@ -78,8 +91,8 @@ public class BoardController {
 	}
 
 	/**
-	 * °Ô½ÃÆÇ ¾²±â
-	 * 
+	 * ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	 *
 	 * @return
 	 * @throws Exception
 	 */
@@ -90,10 +103,10 @@ public class BoardController {
 
 		return mv;
 	}
-	
+
 	/**
-	 * °Ô½ÃÆÇ »èÁ¦
-	 * 
+	 * ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	 *
 	 * @return
 	 * @throws Exception
 	 */
@@ -101,12 +114,55 @@ public class BoardController {
 	public ModelAndView boardDelete(@RequestParam int brdno) throws Exception {
 
 		ModelAndView mv = new ModelAndView("boardForm");
-		
+
 		boardService.boardDelete(brdno);
 
 		return mv;
 	}
-	
-	
+
+	/**
+	 * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½
+	 * JsonView È°ï¿½ï¿½
+	 * @param req
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="fileUpload.ino")
+	public ModelAndView fileUpload(MultipartHttpServletRequest req) throws Exception {
+		ModelAndView mv = new ModelAndView();
+
+		mv.setView(jsonView);
+
+		Iterator<String> itr = req.getFileNames();
+		try {
+			if(itr.hasNext()) {
+				List<MultipartFile> mpf = req.getFiles(itr.next());
+				// ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+				for(int i = 0; i < mpf.size(); i++) {
+					File file = new File(PATH + mpf.get(i).getOriginalFilename());
+					mpf.get(i).transferTo(file);
+				}
+
+				// ï¿½ï¿½ï¿½Îµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
+				JSONObject json = new JSONObject();
+				json.put("code",  "true");
+				mv.addObject("result", json);
+				return mv;
+			} else {
+				JSONObject json = new JSONObject();
+				json.put("code",  "false");
+				mv.addObject("result", json);
+				return mv;
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return mv;
+		}
+
+	}
+
+
+
 
 }
